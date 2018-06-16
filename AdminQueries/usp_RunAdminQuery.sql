@@ -1,4 +1,4 @@
-USE Admin
+USE Master
 GO
 
 
@@ -45,11 +45,11 @@ IF (@help = 1)
 BEGIN
 	PRINT 'This stored proc will run prewritten admin queries stored in the table admin.dbo.AdminQueries'
 	PRINT 'To list all available queries with a description:'
-	PRINT '     exec admin.dbo.usp_RunAdminQuery @list = 1'
+	PRINT '     exec dbo.usp_RunAdminQuery @list = 1'
 	PRINT 'To run one of the queries:'
-	PRINT '     exec admin.dbo.usp_RunAdminQuery @name = ''DatafileInfo'''
+	PRINT '     exec dbo.usp_RunAdminQuery @name = ''DatafileInfo'''
 	PRINT 'To print the text of the script:'
-	PRINT '     exec admin.dbo.usp_RunAdminQuery @name = ''DatafileInfo'', @print=1'
+	PRINT '     exec dbo.usp_RunAdminQuery @name = ''DatafileInfo'', @print=1'
 	RETURN
 END
 
@@ -68,14 +68,6 @@ BEGIN
 	RETURN
 END
 
--- For Proc Logging
-DECLARE @SPName nvarchar(128),
-    @StartDate DATETIME,
-    @EndDate DATETIME
-SET @StartDate = GETDATE()
-SET @SPName = OBJECT_NAME(@@PROCID)
-
-
 -- Variables are awesome
 DECLARE @sqltext VARCHAR(5000)
 
@@ -92,9 +84,3 @@ END
 
 
 EXEC(@sqltext)
-
-
--- Log the Proc
-SET @EndDate = GETDATE()
-EXEC usp_Log_SP_Exec_Time @SPName, @StartDate, @EndDate
-GO
