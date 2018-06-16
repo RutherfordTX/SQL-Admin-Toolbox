@@ -1,4 +1,4 @@
-use Admin
+use Master
 GO
 
 -- Only add if it doesn't exist
