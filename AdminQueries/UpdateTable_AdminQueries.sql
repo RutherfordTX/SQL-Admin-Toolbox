@@ -1,4 +1,4 @@
-USE Admin
+USE Master
 GO
 
 -- View the current contents
